@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Imágenes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #EE82EE;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2em;
+        }
+        .imagen {
+            width: 50%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .texto {
+            font-size: 1.5em;
+            margin-top: 1em;
+        }
+        footer {
+            background-color: #9ACD32;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+            clear: both;
+        }
+        button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 1em 2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1em; /* Añadido para separar el botón de la imagen */
+        }
+        button:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Galería</h1>
+    </header>
+    <main>
+        <h2 id="titulo"></h2> <img id="imagen" src="" alt="Imagen" class="imagen"> 
+		<p id="texto" class="texto"></p> <button id="boton">Siguiente</button>
+    </main>
+    <footer>
+        <p>Referencias </p>
+        <ul>
+            <li>Imagen 1: <a href="#">Enlace 1</a></li>
+            <li>Imagen 2: <a href="#">Enlace 2</a></li>
+            <li>Imagen 3: <a href="#">Enlace 3</a></li>
+        </ul>
+    </footer>
+
+    <script>
+        // Array de objetos con la información de cada imagen
+        let imagenes = [
+            { titulo: "ROCIO", src: "imagen1.jpg", texto: "Esta es la imagen 1" },
+            { titulo: "FLORES", src: "imagen2.jpeg", texto: "Esta es la imagen 2" },
+            { titulo: "PAISAJE", src: "imagen3.jpeg", texto: "Esta es la imagen 3" }
+        ];
+
+        // Variable para controlar el índice de la imagen actual
+        let indiceActual = 0;
+
+        // Función para actualizar la imagen y el texto mostrados
+        function actualizarImagen() {
+            // Accede a los elementos HTML por su ID y actualiza su contenido/atributo
+            document.getElementById("titulo").textContent = imagenes[indiceActual].titulo;
+            document.getElementById("imagen").src = imagenes[indiceActual].src;
+            document.getElementById("imagen").alt = imagenes[indiceActual].titulo; // También actualiza el atributo alt
+            document.getElementById("texto").textContent = imagenes[indiceActual].texto;
+        }
+
+        // Agrega un "event listener" al botón para que cambie la imagen al hacer clic
+        document.getElementById("boton").addEventListener("click", function() {
+            // Incrementa el índice y usa el operador módulo (%) para volver a 0 si llega al final del array
+            indiceActual = (indiceActual + 1) % imagenes.length;
+            actualizarImagen(); // Llama a la función para mostrar la siguiente imagen
+        });
+
+        // Llama a la función actualizarImagen() una vez que la página ha cargado
+        // Esto asegura que la primera imagen se muestre al abrir la galería
+        document.addEventListener("DOMContentLoaded", actualizarImagen);
+    </script>
+</body>
+</html>
